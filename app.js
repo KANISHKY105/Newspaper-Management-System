@@ -14,6 +14,7 @@ const connectDB = require("./db/connect");
 const loginRouter = require("./routes/login");  // routes section
 const registerRouter = require("./routes/register");
 const adminRouter = require("./routes/admin");
+const userInfoRouter = require("./routes/userInfo.js");
 
 const session = require("express-session"); // auth section
 const passport = require("passport");
@@ -58,6 +59,15 @@ passport.deserializeUser(function (id, done) {
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/admin", adminRouter);
+app.use("/userInfo",isAuth, userInfoRouter);
+
+
+
+
+
+
+
+
 
 
 app.get('/',isAuth, (req,res) =>{
@@ -65,7 +75,8 @@ app.get('/',isAuth, (req,res) =>{
 });
 
 app.post('/', (req,res) =>{
-  console.log(req.body)
+  console.log(req.body);
+
 });
 
 app.use(notFoundMiddleware);

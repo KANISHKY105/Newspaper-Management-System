@@ -12,7 +12,7 @@ const logUser = (req, res) => {
   });
 
 
-  console.log( req.body.username,req.body.password)
+  // console.log( req.body.username,req.body.password)
 
 
   req.login(user, (err) => {
@@ -20,7 +20,7 @@ const logUser = (req, res) => {
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, () => {
-        res.render("home")
+        res.render("userInfo")
       });
     }
   });

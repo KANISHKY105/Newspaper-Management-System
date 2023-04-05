@@ -6,7 +6,7 @@ const passportLocalMongoose = require("passport-local-mongoose");
 // const encrypt = require('mongoose-encryption');
 
 
-const userSchema = new mongoose.Schema({
+const adminSchema = new mongoose.Schema({
     
     username: {
         type: String,
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
     
 });
 
-userSchema.plugin(passportLocalMongoose);
+adminSchema.plugin(passportLocalMongoose);
 
 
-module.exports = mongoose.model('Admin', userSchema);
+module.exports = mongoose.model('Admin', adminSchema);
