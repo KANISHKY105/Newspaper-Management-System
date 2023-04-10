@@ -20,7 +20,10 @@ const logUser = (req, res) => {
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, () => {
-        res.render("userInfo")
+        req.session.email = req.body.username;
+        console.log("hiiiiiiiiiiiiiiiiiiii")
+        console.log(req.session.email)
+        res.redirect(`/?username=${req.body.username}`);
       });
     }
   });

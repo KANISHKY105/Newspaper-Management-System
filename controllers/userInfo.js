@@ -1,34 +1,34 @@
 const User = require("../models/user");
 const userInfo = require("../models/userInfo");
 
-const renderUserInfo = (req, res) => {
+const renderUserInfo = async(req, res) => {
+
+  const userEmail = req.session.email;
+  // console.log("this is it");
+
+  // console.log(userEmail);
+  // console.log("this is it");
+
+
+  // const data = await userInfo.find({userID:"642a05e8a223835dc58a9126"})
+  // const data1 = await User.findOne({_id:"642a05e8a223835dc58a9126"})
+  // console.log(data)
+  // console.log(data1)
   res.render("userInfo");
 };
 
 const saveUserInfo = async (req, res) => {
-  console.log(req.body);
   const { email } = req.body;
-  console.log(email);
   const username = email;
-  console.log(typeof username);
   const result = { username: username };
 
-  console.log(typeof result);
-  console.log(result);
-
   const userId = await User.findOne(result);
-  console.log(userId);
 
   const userID = userId._id.toString();
   const userIDs = userID.split(" ")[1];
 
-  console.log(userIDs);
-
-  console.log("This is important");
-
   const { name, address, startDate, endDate } = req.body;
-  console.log(userID);
-  console.log(name);
+
   try {
     // update the user object in the 'users' collection based on their email
     const result = await userInfo.updateOne(

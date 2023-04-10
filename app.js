@@ -6,6 +6,8 @@ const express = require("express");
 const app = express();
 
 const ejs = require("ejs");
+const socketio = require('socket.io')
+
 
 const User = require("./models/user");
 const connectDB = require("./db/connect");
@@ -59,30 +61,57 @@ passport.deserializeUser(function (id, done) {
 app.use("/login", loginRouter);
 app.use("/register", registerRouter);
 app.use("/admin", adminRouter);
-app.use("/userInfo",isAuth, userInfoRouter);
+app.use("/userInfo", userInfoRouter);
 
 
 
 
+app.get('/', isAuth, (req, res) => {
+  console.log(req.query)
 
-
-
-
-
-
-app.get('/',isAuth, (req,res) =>{
-    res.render("home")
+  res.render("home", { username: req.query.username });
 });
 
 app.post('/', (req,res) =>{
-  console.log(req.body);
+  // console.log(req.body);
+  res.send("done")
 
+});
+
+app.get('/chats', (req, res) => {
+  res.sendFile(__dirname + '/public/chat.html');
 });
 
 app.use(notFoundMiddleware);
 
 // db connection
 const port = process.env.PORT || 3000;
+const socketPort = process.env.PORT || 9000;
+
+
+
+const expressServer = app.listen(socketPort);
+const io = socketio(expressServer);
+
+io.of('chats').on('connection',(socket)=>{
+    socket.emit('messageFromServer',{data:"Welcome to the socketio server"});
+    socket.on('messageToServer',(dataFromClient)=>{
+        console.log(dataFromClient)
+    })
+    socket.on('newMessageToServer',(msg)=>{
+        // console.log(msg)
+        io.of('chats').emit('messageToClients',{text:msg.text})
+    })
+})
+
+
+
+
+
+
+
+
+
 
 const start = async () => {
   try {
