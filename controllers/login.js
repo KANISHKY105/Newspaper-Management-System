@@ -21,8 +21,8 @@ const logUser = (req, res) => {
     } else {
       passport.authenticate("local")(req, res, () => {
         req.session.email = req.body.username;
-        console.log("hiiiiiiiiiiiiiiiiiiii")
-        console.log(req.session.email)
+        // console.log("hiiiiiiiiiiiiiiiiiiii")
+        // console.log(req.session.email)
         res.redirect(`/?username=${req.body.username}`);
       });
     }

@@ -4,16 +4,16 @@ const userInfo = require("../models/userInfo");
 const renderUserInfo = async(req, res) => {
 
   const userEmail = req.session.email;
-  // console.log("this is it");
-
-  // console.log(userEmail);
-  // console.log("this is it");
 
 
-  // const data = await userInfo.find({userID:"642a05e8a223835dc58a9126"})
-  // const data1 = await User.findOne({_id:"642a05e8a223835dc58a9126"})
-  // console.log(data)
-  // console.log(data1)
+  // const data = await User.findOne({})
+  // const data1 = await userInfo.findOne({})
+  // if(data1){
+  //   console.log(data1)
+
+  // } else {
+  //   console.log("No data found")
+  // }
   res.render("userInfo");
 };
 
